@@ -12,5 +12,9 @@
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/ethersoft/new-logger#readme"
+  "homepage": "https://bitbucket.org/ethersoft/new-logger#readme",
+  "devDependencies": {
+    "@types/node": "^12.7.5",
+    "typescript": "^3.6.3"
+  }
 }
