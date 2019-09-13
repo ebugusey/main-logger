@@ -1,0 +1,23 @@
+defaultSeverity: warning
+extends:
+  - tslint:recommended
+rules:
+  semicolon:
+    options: never
+  no-console: false
+  quotemark:
+    options:
+      - single
+  arrow-parens:
+    options:
+      - ban-single-arg-parens
+  variable-name:
+    options:
+      - allow-leading-underscore
+      - ban-keywords
+  object-literal-sort-keys:
+    options:
+      - match-declaration-order
+  no-null-keyword: true
+  unified-signatures: true
+  no-non-null-assertion: true
