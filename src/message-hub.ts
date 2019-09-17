@@ -5,7 +5,9 @@ export interface IMessageHub {
 }
 
 export interface IMessageSource {
-    subscribe(cb: Callback): void
+    subscribe(handler: IMessageHandler): void
 }
 
-type Callback = (message: IMessage) => Promise<void>
+export interface IMessageHandler {
+    handle(message: IMessage): Promise<void>
+}
