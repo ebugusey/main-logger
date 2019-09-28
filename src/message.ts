@@ -3,6 +3,7 @@ export interface IMessage {
     user: IUser
     channel?: IChannel
     message: string
+    messageType: MessageType
     source: Source
 }
 
@@ -17,4 +18,10 @@ export interface IChannel {
 
 export enum Source {
     XMPP,
+}
+
+export enum MessageType {
+    Message = 1,
+    Command = 2,
+    State = 3
 }
