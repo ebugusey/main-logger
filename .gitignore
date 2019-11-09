@@ -91,5 +91,3 @@ typings/
 .dynamodb/
 
 .idea/
-
-.vscode/
