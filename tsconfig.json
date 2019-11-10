@@ -1,7 +1,6 @@
 {
   "include": [
     "src/**/*.ts",
-    "models/**/*.ts",
   ],
   "compilerOptions": {
     "target": "es2018",
