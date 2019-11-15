@@ -20,9 +20,15 @@ export class Log extends Model<Log> {
     @ForeignKey(() => MessageType)
     public messageType!: number
 
+    @BelongsTo(() => MessageType)
+    public messageTypeValue?: MessageType
+
     @Column
     @ForeignKey(() => Source)
     public source!: number
+
+    @BelongsTo(() => Source)
+    public sourceValue?: Source
 
     @Column
     public channel!: string
