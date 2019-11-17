@@ -1,4 +1,5 @@
-import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescript'
+import { BelongsTo, ForeignKey, Model } from 'sequelize-typescript'
+import { Column, Table } from './decorators'
 import { Track } from './track'
 
 @Table

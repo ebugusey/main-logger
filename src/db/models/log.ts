@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize'
-import { Column, ForeignKey, Model, Table } from 'sequelize-typescript'
+import { BelongsTo, ForeignKey, Model } from 'sequelize-typescript'
+import { Column, Table } from './decorators'
 import { MessageType } from './message-type'
 import { Source } from './source'
 

@@ -1,4 +1,5 @@
-import { Column, HasMany, Model, Table } from 'sequelize-typescript'
+import { HasMany, Model } from 'sequelize-typescript'
+import { Column, Table } from './decorators'
 import { TrackData } from './track-data'
 
 @Table
