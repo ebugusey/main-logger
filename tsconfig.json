@@ -3,10 +3,14 @@
     "src/**/*.ts",
   ],
   "compilerOptions": {
-    "target": "es2018",
+    "target": "es2017",
+    "lib": [
+      "es2016",
+    ],
     "module": "commonjs",
     "moduleResolution": "node",
     "strict": true,
+    "noImplicitReturns": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
   }

@@ -1,23 +1,36 @@
 defaultSeverity: warning
 extends:
-  - tslint:recommended
+  - tslint:latest
 rules:
+  no-implicit-dependencies: true
+  no-submodule-imports: true
+  prefer-readonly: true
   semicolon:
     options: never
   no-console: false
+  # Лучше использовать одинарные кавычки, так как можно использовать в строчных
+  # литералах двойные кавычки без дополнительных плясок с эскейп-последовательностями.
+  # Но все таки нужно иметь возможно исползовать двойные кавычки, когда нужно использовать
+  # в литерале одинарные.
   quotemark:
     options:
       - single
+      - avoid-escape
   arrow-parens:
     options:
       - ban-single-arg-parens
   variable-name:
     options:
-      - allow-leading-underscore
       - ban-keywords
-  object-literal-sort-keys:
-    options:
-      - match-declaration-order
+      - check-format
+      - allow-leading-underscore
+  # Это правило работает как попало, видимо баг.
+  object-literal-sort-keys: false
   no-null-keyword: true
-  unified-signatures: true
+  # С этим правилом нельзя делать переопределение функций как в C#.
+  unified-signatures: false
   no-non-null-assertion: true
+  no-async-without-await: true
+  no-floating-promises: true
+  strict-type-predicates: true
+  strict-boolean-expressions: true
