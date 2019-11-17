@@ -21,7 +21,7 @@ export enum Source {
 }
 
 export enum MessageType {
-    Message = 1,
-    Command = 2,
-    State = 3
+    Message,
+    Command,
+    State,
 }
