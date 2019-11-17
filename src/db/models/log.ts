@@ -1,3 +1,4 @@
+import { DataTypes } from 'sequelize'
 import { Column, ForeignKey, Model, Table } from 'sequelize-typescript'
 import { MessageType } from './message-type'
 import { Source } from './source'
@@ -10,7 +11,7 @@ export class Log extends Model<Log> {
     @Column
     public nick!: string
 
-    @Column
+    @Column(DataTypes.TEXT)
     public message!: string
 
     @Column
