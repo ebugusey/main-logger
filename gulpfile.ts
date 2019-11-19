@@ -12,7 +12,7 @@ let _project: ts.Project | undefined
 
 function getProject(reset: boolean = false): ts.Project {
     if (reset || _project === undefined) {
-        _project = ts.createProject('tsconfig.json', {
+        _project = ts.createProject('tsconfig.build.json', {
             outDir: OUTPUT,
         })
     }
