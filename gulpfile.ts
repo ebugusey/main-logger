@@ -66,5 +66,10 @@ const build: gulp.TaskFunction = gulp.parallel(
     ),
 )
 
-export { build, clean, lint }
+export {
+    build,
+    clean,
+    lint,
+}
+
 export default build
