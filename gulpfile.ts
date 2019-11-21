@@ -10,14 +10,18 @@ const OUTPUT = 'bin'
 
 let _project: ts.Project | undefined
 
-function getProject(reset: boolean = false): ts.Project {
-    if (reset || _project === undefined) {
+function getProject(): ts.Project {
+    if (_project === undefined) {
         _project = ts.createProject('tsconfig.build.json', {
             outDir: OUTPUT,
         })
     }
 
     return _project
+}
+
+function reloadProject(): void {
+    _project = undefined
 }
 
 const transpile: gulp.TaskFunction = () => {
@@ -66,10 +70,49 @@ const build: gulp.TaskFunction = gulp.parallel(
     ),
 )
 
+const watchTs: gulp.TaskFunction = () => {
+    const tsProject = getProject()
+
+    const result =
+        gulp.watch([
+            // tslint:disable-next-line: no-non-null-assertion
+            ...tsProject.config.include!,
+        ],
+        gulp.parallel(
+            transpile,
+            lint,
+        ))
+
+    return result
+}
+
+const watchTsConfig: gulp.TaskFunction = () => {
+    const result =
+        gulp.watch([
+            'tsconfig.json',
+            'tsconfig.build.json',
+        ],
+        done => {
+            reloadProject()
+            done()
+        })
+
+    return result
+}
+
+const watch: gulp.TaskFunction = gulp.series(
+    build,
+    gulp.parallel(
+        watchTs,
+        watchTsConfig,
+    ),
+)
+
 export {
     build,
     clean,
     lint,
+    watch,
 }
 
 export default build
