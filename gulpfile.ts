@@ -24,8 +24,9 @@ function getProject(): ts.Project {
     return _project
 }
 
-function reloadProject(): void {
+const reloadProject: gulp.TaskFunction = done => {
     _project = undefined
+    done()
 }
 
 const transpile: gulp.TaskFunction = () => {
@@ -103,10 +104,11 @@ const watchTsConfig: gulp.TaskFunction = () => {
             'tsconfig.json',
             'tsconfig.build.json',
         ],
-        done => {
-            reloadProject()
-            done()
-        })
+        gulp.series(
+            reloadProject,
+            build,
+        ),
+    )
 
     return result
 }
