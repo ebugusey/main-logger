@@ -8,6 +8,10 @@ import { Linter } from 'tslint'
 
 const OUTPUT = 'bin'
 
+const ASSETS = [
+    'src/**/*.sql',
+]
+
 let _project: ts.Project | undefined
 
 function getProject(): ts.Project {
@@ -62,11 +66,18 @@ const lint: gulp.TaskFunction = () => {
     return result
 }
 
+const moveAssets: gulp.TaskFunction = () =>
+    gulp.src(ASSETS)
+        .pipe(gulp.dest(OUTPUT))
+
 const build: gulp.TaskFunction = gulp.parallel(
     lint,
     gulp.series(
         clean,
-        transpile,
+        gulp.parallel(
+            transpile,
+            moveAssets,
+        ),
     ),
 )
 
@@ -100,11 +111,15 @@ const watchTsConfig: gulp.TaskFunction = () => {
     return result
 }
 
+const watchAssets: gulp.TaskFunction = () =>
+    gulp.watch(ASSETS, moveAssets)
+
 const watch: gulp.TaskFunction = gulp.series(
     build,
     gulp.parallel(
         watchTs,
         watchTsConfig,
+        watchAssets,
     ),
 )
 
