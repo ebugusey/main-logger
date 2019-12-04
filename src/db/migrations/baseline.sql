@@ -1,10 +1,12 @@
+BEGIN NOT ATOMIC
+
 CREATE TABLE `bad_boobs` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `message` varchar(255) DEFAULT NULL,
   `not_nice` tinyint(4) DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `idx_message` (`message`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `commands` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -15,7 +17,7 @@ CREATE TABLE `commands` (
   `jid` varchar(255) DEFAULT NULL,
   `where_to_answer` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `jids` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -23,7 +25,7 @@ CREATE TABLE `jids` (
   `nick` varchar(255) DEFAULT NULL,
   `date_insert` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -36,7 +38,7 @@ CREATE TABLE `log` (
   `jid` varchar(255) DEFAULT NULL,
   `readed` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `speak` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -45,7 +47,7 @@ CREATE TABLE `speak` (
   `jid` varchar(255) DEFAULT NULL,
   `active` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `track` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -56,7 +58,7 @@ CREATE TABLE `track` (
   `title` varchar(255) DEFAULT NULL,
   `from` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `track_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -65,4 +67,6 @@ CREATE TABLE `track_data` (
   `state_time` datetime DEFAULT NULL,
   `readed` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+END
