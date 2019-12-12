@@ -1,4 +1,5 @@
 // tslint:disable: no-implicit-dependencies
+import { spawn } from 'cross-spawn'
 import * as del from 'del'
 import * as gulp from 'gulp'
 import * as sourcemaps from 'gulp-sourcemaps'
@@ -125,11 +126,41 @@ const watch: gulp.TaskFunction = gulp.series(
     ),
 )
 
+function runMigrator(command: string) {
+    const migrator = spawn(
+        'npx',
+        [
+            'sequelize',
+            command,
+        ],
+        {
+            stdio: 'inherit',
+        },
+    )
+
+    return migrator
+}
+
+const migrateUp: gulp.TaskFunction = () =>
+    runMigrator('db:migrate')
+migrateUp.displayName = 'db:up'
+
+const migrateDown: gulp.TaskFunction = () =>
+    runMigrator('db:migrate:undo')
+migrateDown.displayName = 'db:down'
+
+const migrateDownAll: gulp.TaskFunction = () =>
+    runMigrator('db:migrate:undo:all')
+migrateDownAll.displayName = 'db:down:all'
+
 export {
     build,
     clean,
     lint,
     watch,
+    migrateUp,
+    migrateDown,
+    migrateDownAll,
 }
 
 export default build

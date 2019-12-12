@@ -18,10 +18,12 @@
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.29",
+    "@types/cross-spawn": "^6.0.1",
     "@types/gulp": "^4.0.6",
     "@types/gulp-sourcemaps": "0.0.32",
     "@types/node": "^12.12.8",
     "@types/validator": "^12.0.1",
+    "cross-spawn": "^7.0.1",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
