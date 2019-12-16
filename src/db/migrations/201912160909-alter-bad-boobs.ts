@@ -1,10 +1,13 @@
 import { IMigration } from './types/migration'
 
 const migration: IMigration = {
-    async up(db) {
+    async up(db, dataType) {
         await db.sequelize.transaction(async transaction => {
             await db.removeColumn('bad_boobs', 'not_nice', { transaction })
             await db.removeIndex('bad_boobs', 'idx_message', { transaction })
+            await db.changeColumn('bad_boobs', 'id', {
+                type: dataType.INTEGER,
+            }, { transaction })
         })
     },
 
@@ -19,6 +22,9 @@ const migration: IMigration = {
                 fields: [ 'message' ],
                 transaction,
             })
+            await db.changeColumn('bad_boobs', 'id', {
+                type: dataType.BIGINT,
+            }, { transaction })
         })
     },
 }
