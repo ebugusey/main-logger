@@ -1,12 +1,8 @@
 // tslint:disable: no-implicit-dependencies
 
-// tslint:disable-next-line: no-reference
-/// <reference path="src/types/gulp-sequelize.d.ts" />
-
 import { spawn } from 'cross-spawn'
 import * as del from 'del'
 import * as gulp from 'gulp'
-import * as gulpSequelize from 'gulp-sequelize'
 import * as sourcemaps from 'gulp-sourcemaps'
 import tslint from 'gulp-tslint'
 import * as ts from 'gulp-typescript'
@@ -158,29 +154,6 @@ const migrateDownAll: gulp.TaskFunction = () =>
     runMigrator('db:migrate:undo:all')
 migrateDownAll.displayName = 'db:down:all'
 
-import { Sequelize } from 'sequelize'
-import * as config from './src/db/config/config'
-
-const sequelize = new Sequelize({
-    ...config.development,
-    // ...{
-    //     logging: false,
-    // },
-})
-const migrator = gulpSequelize(sequelize, {
-    storageOptions: {
-        tableName: '_versions',
-    },
-    migrations: {
-        path: 'bin/db/migrations',
-    },
-})
-
-const up: gulp.TaskFunction = migrator.up
-const down: gulp.TaskFunction = migrator.down
-const pending: gulp.TaskFunction = migrator.pending
-const executed: gulp.TaskFunction = migrator.executed
-
 export {
     build,
     clean,
@@ -189,10 +162,6 @@ export {
     migrateUp,
     migrateDown,
     migrateDownAll,
-    up,
-    down,
-    pending,
-    executed,
 }
 
 export default build
