@@ -5,7 +5,6 @@ const migration: IMigration = {
         await db.createTable('message_types', {
             id: {
                 allowNull: false,
-                autoIncrement: true,
                 primaryKey: true,
                 type: dataType.INTEGER,
             },
