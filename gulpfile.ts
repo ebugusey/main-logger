@@ -1,5 +1,4 @@
 // tslint:disable: no-implicit-dependencies
-
 import { spawn } from 'cross-spawn'
 import * as del from 'del'
 import * as gulp from 'gulp'
