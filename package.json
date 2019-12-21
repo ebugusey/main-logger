@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "github:ebugusey/new-logger",
+  "repository": "github:ebugusey/main-logger",
   "author": "",
   "license": "ISC",
   "dependencies": {
