@@ -1,32 +1,20 @@
-import { IMigration } from './types/migration'
+import * as Knex from 'knex'
+import { incrementedId } from './extensions/knex'
 
-const migration: IMigration = {
-    async up(db, dataType) {
-        await db.sequelize.transaction(async transaction => {
-            await db.removeColumn('bad_boobs', 'not_nice', { transaction })
-            await db.removeIndex('bad_boobs', 'idx_message', { transaction })
-            await db.changeColumn('bad_boobs', 'id', {
-                type: dataType.INTEGER,
-            }, { transaction })
+export async function up(db: Knex) {
+    await db.schema
+        .alterTable('bad_boobs', table => {
+            incrementedId(table, 'id').alter()
+            table.dropColumn('not_nice')
+            table.dropIndex('message', 'idx_message')
         })
-    },
-
-    async down(db, dataType) {
-        await db.sequelize.transaction(async transaction => {
-            await db.addColumn('bad_boobs', 'not_nice', {
-                type: dataType.TINYINT,
-                defaultValue: 0,
-            }, { transaction })
-            await db.addIndex('bad_boobs', {
-                name: 'idx_message',
-                fields: [ 'message' ],
-                transaction,
-            })
-            await db.changeColumn('bad_boobs', 'id', {
-                type: dataType.BIGINT,
-            }, { transaction })
-        })
-    },
 }
 
-export = migration
+export async function down(db: Knex) {
+    await db.schema
+        .alterTable('bad_boobs', table => {
+            table.specificType('id', 'bigint auto_increment').notNullable().alter()
+            table.specificType('not_nice', 'tinyint(4)').defaultTo(0)
+            table.index('message', 'idx_message')
+        })
+}

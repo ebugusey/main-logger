@@ -1,22 +1,14 @@
-import { IMigration } from './types/migration'
+import * as Knex from 'knex'
 
-const migration: IMigration = {
-    async up(db, dataType) {
-        await db.createTable('message_types', {
-            id: {
-                allowNull: false,
-                primaryKey: true,
-                type: dataType.INTEGER,
-            },
-            description: {
-                allowNull: false,
-                type: dataType.STRING,
-            },
+export async function up(db: Knex) {
+    await db.schema
+        .createTable('message_types', table => {
+            table.integer('id').notNullable().primary()
+            table.string('description').notNullable()
         })
-    },
-    async down(db) {
-        await db.dropTable('message_types')
-    },
 }
 
-export = migration
+export async function down(db: Knex) {
+    await db.schema
+        .dropTable('message_types')
+}

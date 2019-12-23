@@ -1,19 +1,21 @@
 import { promises as fs } from 'fs'
+import * as Knex from 'knex'
 import * as path from 'path'
-import { IMigration } from './types/migration'
 
-const migration: IMigration = {
-    async up(db) {
-        const baseline = path.resolve(__dirname, 'scripts/baseline.sql')
-        const baselineQuery = await fs.readFile(baseline, { encoding: 'utf8' })
+export async function up(db: Knex) {
+    const baseline = path.resolve(__dirname, 'scripts/baseline.sql')
+    const baselineQuery = await fs.readFile(baseline, { encoding: 'utf8' })
 
-        await db.sequelize.transaction(async transaction => {
-            await db.sequelize.query(baselineQuery, { transaction })
-        })
-    },
-    async down(db) {
-        await db.dropAllTables()
-    },
+    await db.schema.raw(baselineQuery)
 }
 
-export = migration
+export async function down(db: Knex) {
+    await db.schema
+        .dropTable('bad_boobs')
+        .dropTable('commands')
+        .dropTable('jids')
+        .dropTable('log')
+        .dropTable('speak')
+        .dropTable('track')
+        .dropTable('track_data')
+}

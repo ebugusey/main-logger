@@ -1,28 +1,21 @@
-import { IMigration } from './types/migration'
+import * as Knex from 'knex'
+import { addIncrementedId } from './extensions/knex'
 
-const migration: IMigration = {
-    async up(db) {
-        await db.dropTable('speak')
-    },
-
-    async down(db, dataType) {
-        await db.createTable('speak',
-        {
-            id: {
-                type: dataType.INTEGER,
-                primaryKey: true,
-                autoIncrement: true,
-            },
-            date: {
-                type: 'timestamp',
-                defaultValue:
-                    db.sequelize.Sequelize.literal('current_timestamp'),
-            },
-            nick: dataType.STRING,
-            jid: dataType.STRING,
-            active: dataType.TINYINT,
-        })
-    },
+export async function up(db: Knex) {
+    await db.schema
+        .dropTable('speak')
 }
 
-export = migration
+export async function down(db: Knex) {
+    const builder = db.schema
+        .createTable('speak', table => {
+            table.timestamp('date').notNullable()
+                .defaultTo(db.raw('current_timestamp()'))
+            table.string('nick')
+            table.string('jid')
+            table.specificType('active', 'tinyint(4)')
+        })
+    addIncrementedId(builder, 'speak', 'id')
+
+    await builder
+}

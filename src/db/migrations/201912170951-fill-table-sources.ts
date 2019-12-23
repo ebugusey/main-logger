@@ -1,17 +1,13 @@
+import * as Knex from 'knex'
 import { Source } from '../models'
-import { IMigration } from './types/migration'
 
-const migration: IMigration = {
-    async up(db) {
-        await db.bulkInsert('sources', [
-            { id: Source.value.XMPP, description: 'XMPP' },
-            { id: Source.value.Telegram, description: 'Telegram' },
-        ])
-    },
-
-    async down() {
-        return
-    },
+export async function up(db: Knex) {
+    await db.batchInsert('sources', [
+        { id: Source.value.XMPP, description: 'XMPP' },
+        { id: Source.value.Telegram, description: 'Telegram' },
+    ])
 }
 
-export = migration
+export async function down() {
+    return
+}

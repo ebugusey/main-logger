@@ -1,26 +1,22 @@
-import { IMigration } from './types/migration'
+import * as Knex from 'knex'
+import { addIncrementedId } from './extensions/knex'
 
-const migration: IMigration = {
-    async up(db) {
-        await db.dropTable('commands')
-    },
-
-    async down(db, dataType) {
-        await db.createTable('commands',
-        {
-            id: {
-                type: dataType.INTEGER,
-                primaryKey: true,
-                autoIncrement: true,
-            },
-            command: dataType.STRING,
-            date_insert: dataType.DATE,
-            done: dataType.TINYINT,
-            from: dataType.STRING,
-            jid: dataType.STRING,
-            where_to_answer: dataType.STRING,
-        })
-    },
+export async function up(db: Knex) {
+    await db.schema
+        .dropTable('commands')
 }
 
-export = migration
+export async function down(db: Knex) {
+    const builder = db.schema
+        .createTable('commands', table => {
+            table.string('command')
+            table.dateTime('date_insert')
+            table.specificType('done', 'tinyint(4)')
+            table.string('from')
+            table.string('jid')
+            table.string('where_to_answer')
+        })
+    addIncrementedId(builder, 'commands', 'id')
+
+    await builder
+}
